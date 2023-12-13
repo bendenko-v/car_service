@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15.5-alpine
+    container_name: car_service_db
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U ${DB_USER} -d ${DB_NAME}
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: always
+
+volumes:
+  db_data:
