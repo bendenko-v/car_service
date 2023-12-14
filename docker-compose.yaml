@@ -21,5 +21,17 @@ services:
       retries: 10
     restart: always
 
+  test_db:
+    image: postgres:15.5-alpine
+    container_name: car_service_db_test
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=car_service_db_test
+    ports:
+      - "5432:5432"
+
 volumes:
   db_data:
