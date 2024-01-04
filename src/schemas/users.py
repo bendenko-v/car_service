@@ -4,6 +4,7 @@ from datetime import datetime
 
 from fastapi_users import schemas
 from pydantic import BaseModel, EmailStr, Field
+from schemas.shifts import ShiftDayRead
 
 
 class Role(str, enum.Enum):
@@ -34,3 +35,7 @@ class UserCreate(CustomFields, schemas.BaseUserCreate):
 
 class UserUpdate(CustomFields, schemas.BaseUserUpdate):
     pass
+
+
+class UserWithShifts(UserRead):
+    shifts: list[ShiftDayRead] = []
