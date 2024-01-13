@@ -16,5 +16,9 @@ class ShiftDayCreate(ShiftDayBase):
     master_id: UUID_ID | None = None
 
 
-class ShiftDayRead(ShiftDayBase):
+class ShiftDayRead(ShiftDayCreate):
+    id: int  # noqa: A003
+
+
+class UserShiftRead(ShiftDayBase):
     id: int  # noqa: A003

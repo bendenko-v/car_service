@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Generic, TypeVar
 
 from fastapi_users_db_sqlalchemy import UUID_ID
@@ -38,6 +39,7 @@ class DatabaseRepository(Generic[Model]):
         try:
             for key, value in data.model_dump().items():
                 setattr(item, key, value)
+            item.updated = datetime.utcnow()
             await self.session.commit()
             await self.session.refresh(item)
             return item

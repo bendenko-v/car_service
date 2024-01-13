@@ -17,7 +17,7 @@ async def get_user_with_shifts(
         shifts_repo: ShiftsRepository = Depends(get_shifts_repository),
         # user: User = Depends(current_active_user),
 ):
-    user_with_shifts = await shifts_repo.get_user_with_shifts(user_id)
+    user_with_shifts = await shifts_repo.get_master_with_shifts(user_id)
     if user_with_shifts is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     return user_with_shifts

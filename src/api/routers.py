@@ -1,4 +1,4 @@
-from api.v1.endpoints import calendar, shifts
+from api.v1.endpoints import shifts
 from fastapi import APIRouter, Body, Depends, HTTPException, Request, status
 from fastapi_users import exceptions, schemas
 from fastapi_users.router import ErrorCode
@@ -172,9 +172,4 @@ api_router.include_router(
     shifts.router,
     prefix='/shifts',
     tags=['shifts'],
-)
-api_router.include_router(
-    calendar.router,
-    prefix='/calendar',
-    tags=['calendar'],
 )

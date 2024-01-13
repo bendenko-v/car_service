@@ -11,7 +11,7 @@ from src.database.models import ShiftDay, User
 
 class ShiftsRepository(DatabaseRepository[ShiftDay]):
 
-    async def get_user_with_shifts(self, user_id: UUID_ID) -> User:
+    async def get_master_with_shifts(self, user_id: UUID_ID) -> User:
         stmt = (
             select(User)
             .where(User.id == user_id)
@@ -35,8 +35,8 @@ class ShiftsRepository(DatabaseRepository[ShiftDay]):
         return result.scalar()
 
     async def create_shift(self, data: ShiftDayCreate) -> ShiftDay | str:
-        master_exists = await self.check_shift_already_exists(data.master_id, data.date)
-        if master_exists:
+        master_shift_exists = await self.check_shift_already_exists(data.master_id, data.date)
+        if master_shift_exists:
             return "Shift already exists or the user is not a master"
         shift = ShiftDay(**data.model_dump())
         self.session.add(shift)
